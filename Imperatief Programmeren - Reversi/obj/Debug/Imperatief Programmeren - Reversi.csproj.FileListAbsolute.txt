@@ -1,0 +1,18 @@
+c:\users\lennart\documents\visual studio 2015\Projects\Imperatief Programmeren - Reversi\Imperatief Programmeren - Reversi\bin\Debug\Imperatief Programmeren - Reversi.exe.config
+c:\users\lennart\documents\visual studio 2015\Projects\Imperatief Programmeren - Reversi\Imperatief Programmeren - Reversi\bin\Debug\Imperatief Programmeren - Reversi.exe
+c:\users\lennart\documents\visual studio 2015\Projects\Imperatief Programmeren - Reversi\Imperatief Programmeren - Reversi\bin\Debug\Imperatief Programmeren - Reversi.pdb
+c:\users\lennart\documents\visual studio 2015\Projects\Imperatief Programmeren - Reversi\Imperatief Programmeren - Reversi\obj\Debug\Imperatief Programmeren - Reversi.csprojResolveAssemblyReference.cache
+c:\users\lennart\documents\visual studio 2015\Projects\Imperatief Programmeren - Reversi\Imperatief Programmeren - Reversi\obj\Debug\Imperatief_Programmeren___Reversi.Properties.Resources.resources
+c:\users\lennart\documents\visual studio 2015\Projects\Imperatief Programmeren - Reversi\Imperatief Programmeren - Reversi\obj\Debug\Imperatief Programmeren - Reversi.csproj.GenerateResource.Cache
+c:\users\lennart\documents\visual studio 2015\Projects\Imperatief Programmeren - Reversi\Imperatief Programmeren - Reversi\obj\Debug\Imperatief Programmeren - Reversi.exe
+c:\users\lennart\documents\visual studio 2015\Projects\Imperatief Programmeren - Reversi\Imperatief Programmeren - Reversi\obj\Debug\Imperatief Programmeren - Reversi.pdb
+c:\users\lennart\documents\visual studio 2015\Projects\Imperatief Programmeren - Reversi\Imperatief Programmeren - Reversi\obj\Debug\Imperatief_Programmeren___Reversi.Reversi.resources
+C:\Users\Bruger1\Documents\Visual Studio 2015\Projects\Imperatief-Programmeren-Reversi\Imperatief Programmeren - Reversi\Imperatief Programmeren - Reversi\bin\Debug\Imperatief Programmeren - Reversi.exe.config
+C:\Users\Bruger1\Documents\Visual Studio 2015\Projects\Imperatief-Programmeren-Reversi\Imperatief Programmeren - Reversi\Imperatief Programmeren - Reversi\obj\Debug\Imperatief Programmeren - Reversi.exe
+C:\Users\Bruger1\Documents\Visual Studio 2015\Projects\Imperatief-Programmeren-Reversi\Imperatief Programmeren - Reversi\Imperatief Programmeren - Reversi\obj\Debug\Imperatief Programmeren - Reversi.pdb
+C:\Users\Bruger1\Documents\Visual Studio 2015\Projects\Imperatief-Programmeren-Reversi\Imperatief Programmeren - Reversi\Imperatief Programmeren - Reversi\bin\Debug\Imperatief Programmeren - Reversi.exe
+C:\Users\Bruger1\Documents\Visual Studio 2015\Projects\Imperatief-Programmeren-Reversi\Imperatief Programmeren - Reversi\Imperatief Programmeren - Reversi\bin\Debug\Imperatief Programmeren - Reversi.pdb
+C:\Users\Bruger1\Documents\Visual Studio 2015\Projects\Imperatief-Programmeren-Reversi\Imperatief Programmeren - Reversi\Imperatief Programmeren - Reversi\obj\Debug\Imperatief Programmeren - Reversi.csprojResolveAssemblyReference.cache
+C:\Users\Bruger1\Documents\Visual Studio 2015\Projects\Imperatief-Programmeren-Reversi\Imperatief Programmeren - Reversi\Imperatief Programmeren - Reversi\obj\Debug\Imperatief_Programmeren___Reversi.Reversi.resources
+C:\Users\Bruger1\Documents\Visual Studio 2015\Projects\Imperatief-Programmeren-Reversi\Imperatief Programmeren - Reversi\Imperatief Programmeren - Reversi\obj\Debug\Imperatief_Programmeren___Reversi.Properties.Resources.resources
+C:\Users\Bruger1\Documents\Visual Studio 2015\Projects\Imperatief-Programmeren-Reversi\Imperatief Programmeren - Reversi\Imperatief Programmeren - Reversi\obj\Debug\Imperatief Programmeren - Reversi.csproj.GenerateResource.Cache
