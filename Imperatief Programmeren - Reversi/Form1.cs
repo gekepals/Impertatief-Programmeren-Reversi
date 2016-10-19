@@ -40,14 +40,7 @@ namespace Imperatief_Programmeren___Reversi
             x_waarde.KeyDown += x_waarde_enter;
             y_waarde.KeyDown += y_waarde_enter;
 
-            /*
-            //array
-            speelveld = new int[vakx, vaky];
-            speelveld[vakx / 2 - 1, vaky / 2 - 1] = 2;
-            speelveld[vakx / 2, vaky / 2] = 2;
-            speelveld[vakx / 2, vaky / 2 - 1] = 1;
-            speelveld[vakx / 2 - 1, vaky / 2] = 1;
-            */
+            this.beginArray(vakx, vaky);
 
             //aanpassen grootte speelveld - labels & tekstboxen
             label1.Text = "Grootte van het speelveld:";
@@ -68,29 +61,22 @@ namespace Imperatief_Programmeren___Reversi
         //Nieuw spel button
         private void button2_Click(object sender, EventArgs ea)
         {
-            beginArray(vakx, vaky);
+            //beginArray(vakx, vaky);
             //evt aanpassing van speelveld
-            veldWaarde();
+            
 
             //waardes resetten
             for (int t = 0; t < vakx; t++)
             {
-                for (int s = 0; s < vakx; s++)
+                for (int s = 0; s < vaky; s++)
                 {
                     speelveld[t, s] = 0;
                 }
             }
 
-            /*
-            //beginwaardes meegeven
-            speelveld[vakx / 2 - 1, vaky / 2 - 1] = 2;
-            speelveld[vakx / 2, vaky / 2] = 2;
-            speelveld[vakx / 2, vaky / 2 - 1] = 1;
-            speelveld[vakx / 2 - 1, vaky / 2] = 1;
-            */
+            veldWaarde();
 
-           
-            
+
             //grootte speelveld aanpassen
             Panel.Size = new Size(vakx * steen, vaky * steen);
 
@@ -145,6 +131,7 @@ namespace Imperatief_Programmeren___Reversi
             Panel.Invalidate();
         }
 
+        //Deze methode past de hoogte en de breedte aan van de array/speelveld
         private void veldWaarde()
         {
             int w_vakx, w_vaky;
@@ -155,14 +142,15 @@ namespace Imperatief_Programmeren___Reversi
             if (w_vaky > 2)
                 vaky = w_vaky;
 
+            this.beginArray(vakx, vaky);
 
-            beginArray(vakx, vaky);
             Panel.Invalidate();
 
-            //probleem: zodra vakx of vaky groter dan beginwaardes ervan wordt gemaakt knalt ie eruit
+            
         }
 
-        private void beginArray(int vakx, int vaky)
+        //hier maken we de tweedimensionele array aan
+        private void  beginArray(int vakx, int vaky)
         {
             //Deze array is belangrijk
             speelveld = new int[vakx, vaky];
@@ -170,9 +158,10 @@ namespace Imperatief_Programmeren___Reversi
             speelveld[vakx / 2, vaky / 2] = 2;
             speelveld[vakx / 2, vaky / 2 - 1] = 1;
             speelveld[vakx / 2 - 1, vaky / 2] = 1;
+
         }
 
-
+        //deze methode geeft de mogelijke plaatsen aan
         private void steenHulp()
         {
             int kleur;
@@ -213,8 +202,6 @@ namespace Imperatief_Programmeren___Reversi
         private void panel1_Paint(object sender, PaintEventArgs pea)
         {
            
-            beginArray(vakx,vaky);
-
            this.steenHulp();
                         
             for (int t = 0; t <= vakx; t++)
