@@ -164,6 +164,7 @@ namespace Imperatief_Programmeren___Reversi
 
         private void beginArray(int vakx, int vaky)
         {
+            //Deze array is belangrijk
             speelveld = new int[vakx, vaky];
             speelveld[vakx / 2 - 1, vaky / 2 - 1] = 2;
             speelveld[vakx / 2, vaky / 2] = 2;
