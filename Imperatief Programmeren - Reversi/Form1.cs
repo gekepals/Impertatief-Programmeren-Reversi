@@ -40,12 +40,14 @@ namespace Imperatief_Programmeren___Reversi
             x_waarde.KeyDown += x_waarde_enter;
             y_waarde.KeyDown += y_waarde_enter;
 
+            /*
             //array
             speelveld = new int[vakx, vaky];
             speelveld[vakx / 2 - 1, vaky / 2 - 1] = 2;
             speelveld[vakx / 2, vaky / 2] = 2;
             speelveld[vakx / 2, vaky / 2 - 1] = 1;
             speelveld[vakx / 2 - 1, vaky / 2] = 1;
+            */
 
             //aanpassen grootte speelveld - labels & tekstboxen
             label1.Text = "Grootte van het speelveld:";
@@ -66,6 +68,7 @@ namespace Imperatief_Programmeren___Reversi
         //Nieuw spel button
         private void button2_Click(object sender, EventArgs ea)
         {
+            beginArray(vakx, vaky);
             //evt aanpassing van speelveld
             veldWaarde();
 
@@ -78,11 +81,15 @@ namespace Imperatief_Programmeren___Reversi
                 }
             }
 
+            /*
             //beginwaardes meegeven
             speelveld[vakx / 2 - 1, vaky / 2 - 1] = 2;
             speelveld[vakx / 2, vaky / 2] = 2;
             speelveld[vakx / 2, vaky / 2 - 1] = 1;
             speelveld[vakx / 2 - 1, vaky / 2] = 1;
+            */
+
+           
             
             //grootte speelveld aanpassen
             Panel.Size = new Size(vakx * steen, vaky * steen);
@@ -148,15 +155,20 @@ namespace Imperatief_Programmeren___Reversi
             if (w_vaky > 2)
                 vaky = w_vaky;
 
+
+            beginArray(vakx, vaky);
+            Panel.Invalidate();
+
+            //probleem: zodra vakx of vaky groter dan beginwaardes ervan wordt gemaakt knalt ie eruit
+        }
+
+        private void beginArray(int vakx, int vaky)
+        {
             speelveld = new int[vakx, vaky];
             speelveld[vakx / 2 - 1, vaky / 2 - 1] = 2;
             speelveld[vakx / 2, vaky / 2] = 2;
             speelveld[vakx / 2, vaky / 2 - 1] = 1;
             speelveld[vakx / 2 - 1, vaky / 2] = 1;
-
-            Panel.Invalidate();
-
-            //probleem: zodra vakx of vaky groter dan beginwaades ervan wordt gemaakt knalt ie eruit
         }
 
 
@@ -199,7 +211,10 @@ namespace Imperatief_Programmeren___Reversi
         //panel voor het paint event
         private void panel1_Paint(object sender, PaintEventArgs pea)
         {
-            this.steenHulp();
+           
+            beginArray(vakx,vaky);
+
+           this.steenHulp();
                         
             for (int t = 0; t <= vakx; t++)
             {
