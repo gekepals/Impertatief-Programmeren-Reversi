@@ -104,8 +104,8 @@ namespace Imperatief_Programmeren___Reversi
             mousex = mea.X / steen;
             mousey = mea.Y / steen;
 
-            //beurt blauw-rood afwisselen
-            if (speelveld[mousex, mousey] != 1 && speelveld[mousex, mousey] != 2 && speelveld[mousex, mousey] == 3)
+            //beurt blauw-rood afwisselen & geklikte veld een steenwaarde geven
+            if (speelveld[mousex, mousey] != 1 && speelveld[mousex, mousey] != 2 && speelveld[mousex, mousey] == 3 || speelveld[mousex, mousey] == 4)
             {
                 if (teller % 2 == 0)
                 {
@@ -177,7 +177,7 @@ namespace Imperatief_Programmeren___Reversi
                 for (int s = 0; s < vaky; s++)
                 {
                     //kijken naar de stenen van de andere partij
-                    if (speelveld[t, s] != kleur && speelveld[t, s] != 0 && speelveld[t, s] != 3)
+                    if (speelveld[t, s] != kleur && speelveld[t, s] != 0 && speelveld[t, s] != 3 && speelveld[t, s] != 4)
                     {
                         //legaleZet(t, s);
                         //raster rondom steen bekijken: beginnen bij 1, ophogen indien nodig
@@ -197,8 +197,16 @@ namespace Imperatief_Programmeren___Reversi
                                             {
                                                 if (speelveld[t + x * -1, s + y * -1] == kleur)
                                                 {
-                                                    speelveld[t + x, s + y] = 3;
-                                                    //probleem: code wordt te ver doorlopen, waardoor ook vakjes die niet grenzen aan een steen 3 worden
+                                                    if(kleur == 2)
+                                                    {
+                                                        speelveld[t + x, s + y] = 3;
+                                                        //probleem: code wordt te ver doorlopen, waardoor ook vakjes die niet grenzen aan een steen 3 worden
+                                                    }
+                                                    else if(kleur == 1)
+                                                    {
+                                                        speelveld[t + x, s + y] = 4;
+                                                    }
+
                                                 }
                                             }
                                         }
@@ -275,15 +283,19 @@ namespace Imperatief_Programmeren___Reversi
                     {
                         if(speelveld[t,s] == 1)
                         {
-                            pea.Graphics.FillEllipse(Brushes.Red, t * Panel.Width / vakx, s * Panel.Height / vaky, steen, steen);
+                            pea.Graphics.FillEllipse(Brushes.Red, t * Panel.Width / vakx + 5, s * Panel.Height / vaky + 5, steen -10, steen -10);
                         }
                         else if(speelveld[t,s] == 3)
                         {
-                            pea.Graphics.DrawEllipse(Pens.Black, t * Panel.Width / vakx + 15, s * Panel.Height / vaky + 15, steen - 25, steen - 25);
+                            pea.Graphics.FillEllipse(Brushes.Blue, t * Panel.Width / vakx + 15, s * Panel.Height / vaky + 15, steen - 30, steen - 30);
+                        }
+                        else if(speelveld[t,s] == 4)
+                        {
+                            pea.Graphics.FillEllipse(Brushes.Red, t * Panel.Width / vakx + 15, s * Panel.Height / vaky + 15, steen - 30, steen - 30);
                         }
                         else
                         {
-                            pea.Graphics.FillEllipse(Brushes.Blue, t * Panel.Width / vakx, s * Panel.Height / vaky, steen, steen);
+                            pea.Graphics.FillEllipse(Brushes.Blue, t * Panel.Width / vakx + 5, s * Panel.Height / vaky + 5, steen - 10, steen - 10);
                         }
                     }
                 }
