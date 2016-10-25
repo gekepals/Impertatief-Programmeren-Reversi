@@ -18,7 +18,7 @@ namespace Imperatief_Programmeren___Reversi
         int[,] speelveld;
         int mousex, mousey;
         int teller = 0;
-        int kleur, x, y, gx, gy;
+        int kleur, x, y;
 
         //indeling veld
         //0 is leeg
@@ -210,18 +210,19 @@ namespace Imperatief_Programmeren___Reversi
         private void legaleZet(int t, int s)
         {
             //raster rondom steen bekijken: beginnen bij 1, ophogen indien nodig
-            //probleem: hierbij nog bepaling dat ie niet buiten het veld eruit vliegt. Voor gemak heb ik nu 3 gekozen om deze code te testen
             for (int a = 1; a < vakx; a++)
             {
                 for (int b = 1; b < vaky; b++)
                 {
+                    //raster doorlopen
                     for (x = -a; x <= a; x++)
                     {
                         for (y = -b; y <= b; y++)
                         {
+                            //zorgen dat ie niet buiten de array van speelveld valt
                             if (t + x < vakx && t + x >= 0 && s + y < vaky && s + y >= 0)
                             {
-                                //kijken in het raster rondom de steen van de tegenpartij + niet buiten speelveld vallen
+                                //kijken in het raster rondom de steen van de tegenpartij
                                 if (speelveld[t + x, s + y] != 1 && speelveld[t + x, s + y] != 2)
                                 {
                                     if (t + x * -1 < vakx && t + x * -1 >= 0 && s + y * -1 < vaky && s + y * -1 >= 0)
@@ -271,21 +272,28 @@ namespace Imperatief_Programmeren___Reversi
 
         private void kleurVerander(int t, int s)
         {
+            //kijken rondom de gezette steen
             for(int gx = -1; gx <= 1; gx++)
             {
                 for(int gy = -1; gy <= 1; gy++)
                 {
+                    //zorgen dat ie niet buiten de array vliegt
                     if (t + gx < vakx && t + gx >= 0 && s + gy < vaky && s + gy >= 0)
                     {
+                        //kijken of steen naast de gezette steen van de andere kleur is
                         if (speelveld[t + gx, s + gy] != kleur)
                         {
                             int teller = 1;
+                            //loop doorlopen zolang als de rij stenen van de andere kleur zijn
                             while (speelveld[t + gx, s + gy] != kleur && t + gx * teller >= 0 && t + gx * teller < vakx && s + gy * teller >= 0 && s + gy * teller < vaky)
                             {
+                                //als de rij stenen op een gegeven moment een steen tegenkomt van eigen kleur
                                 if (speelveld[t + gx * teller, s + gy * teller] == kleur)
                                 {
+                                    //teller terug laten lopen, zodat je alle stenen ertussen bereikt
                                     for (int z = teller; z > 0; z--)
                                     {
+                                        //deze stenen de eigen kleur maken
                                         speelveld[t + gx * z, s + gy * z] = kleur;
                                     }
                                 }
@@ -297,21 +305,6 @@ namespace Imperatief_Programmeren___Reversi
                 }
             }
         }
-
-
-
-                                /*for (gx = 0; gx <= vakx; gx++)
-                                {
-                                    for(gy = 0; gy <= vaky; gy++)
-                                    {
-                                        if(t - gx >= 0 && t + gx < vakx && s - gy >= 0 && s + gy < vaky)
-                                        {
-                                            if(speelveld[t+gx, s+gy] != kleur)
-
-                                        }
-                                    }
-                                }
-                                */
 
         //panel voor het paint event
         private void panel1_Paint(object sender, PaintEventArgs pea)
