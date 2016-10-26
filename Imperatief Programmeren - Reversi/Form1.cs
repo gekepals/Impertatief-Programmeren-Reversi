@@ -170,8 +170,10 @@ namespace Imperatief_Programmeren___Reversi
             }
 
             veldWaarde();
-
-            //steenaantal = 4;
+            hintaantal = 1;
+            beurt = 0;
+            geenoptie = 0;
+            stenenaantal = 4;
 
 
             //grootte speelveld aanpassen
@@ -348,8 +350,8 @@ namespace Imperatief_Programmeren___Reversi
                     }
                 }
             }
-            
-            if(stenenaantal == vakx*vaky || geenoptie == 1)
+
+            if (stenenaantal == vakx*vaky || geenoptie == 1)
             {
                 if(teller_blauw > teller_rood)
                 {
