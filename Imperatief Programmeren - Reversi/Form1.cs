@@ -17,9 +17,9 @@ namespace Imperatief_Programmeren___Reversi
         int steen = 50;
         int[,] speelveld;
         int mousex, mousey;
-        int teller = 0;
+        int beurt = 0;
         int kleur, x, y;
-        int buttonklik = 0;
+        bool help = false;
         //tellertje voor beide stenen
         int teller_rood = 0;
         int teller_blauw = 0;
@@ -60,7 +60,14 @@ namespace Imperatief_Programmeren___Reversi
         //Help button
         private void button1_Click(object sender, EventArgs ea)
         {
-            buttonklik++;
+            if (help)
+            {
+                help = false;
+            }
+            else
+            {
+                help = true;
+            }
 
             Panel.Invalidate();
         }
@@ -114,7 +121,7 @@ namespace Imperatief_Programmeren___Reversi
             if (speelveld[mousex, mousey] != 1 && speelveld[mousex, mousey] != 2 && speelveld[mousex, mousey] == 3 || speelveld[mousex, mousey] == 5)
             {
                 //bepalen wie er aan de beurt is en dus welke kleur steen geplaatst wordt
-                if (teller % 2 == 0)
+                if (beurt % 2 == 0)
                 {
                     speelveld[mousex, mousey] = 2;
                 }
@@ -122,24 +129,26 @@ namespace Imperatief_Programmeren___Reversi
                 {
                     speelveld[mousex, mousey] = 1;
                 }
-                teller += 1;
-            }
+                beurt += 1;
 
-            //array opschonen van tips
-            for (int t = 0; t < vakx; t++)
-            {
-                for (int s = 0; s < vakx; s++)
+
+                //array opschonen van tips
+                for (int t = 0; t < vakx; t++)
                 {
-                    if (speelveld[t, s] == 3 || speelveld[t, s] == 5)
+                    for (int s = 0; s < vakx; s++)
                     {
-                        speelveld[t, s] = 0;
+                        if (speelveld[t, s] == 3 || speelveld[t, s] == 5)
+                        {
+                            speelveld[t, s] = 0;
+                        }
                     }
                 }
+
+
+                kleurVerander(mousex, mousey);
+
+                Panel.Invalidate();
             }
-
-            kleurVerander(mousex, mousey);
-
-            Panel.Invalidate();
         }
 
         //Deze methode past de hoogte en de breedte aan van de array/speelveld
@@ -176,7 +185,7 @@ namespace Imperatief_Programmeren___Reversi
         private void steenHulp()
         {
             //int kleur;
-            if (teller % 2 == 0)
+            if (beurt % 2 == 0)
                 kleur = 2;
             else
                 kleur = 1;
@@ -302,6 +311,8 @@ namespace Imperatief_Programmeren___Reversi
         //bijhouden score
         private void score()
         {
+            teller_rood = 0;
+            teller_blauw = 0;
             //veld doorlopen
             for(int t = 0; t < vakx; t++)
             {
@@ -350,9 +361,14 @@ namespace Imperatief_Programmeren___Reversi
         //panel voor het paint event
         private void panel1_Paint(object sender, PaintEventArgs pea)
         {
+<<<<<<< HEAD
             eindSpel();
 
            this.steenHulp();
+=======
+           
+            this.steenHulp();
+>>>>>>> 25e09fad8c7853c9b165d6850a1fa96a4853de78
 
            score();
                         
@@ -388,12 +404,12 @@ namespace Imperatief_Programmeren___Reversi
                             pea.Graphics.FillEllipse(Brushes.Blue, t * Panel.Width / vakx + 5, s * Panel.Height / vaky + 5, steen - 10, steen - 10);
                         }
                         //blauwe hint
-                        else if (speelveld[t,s] == 3 && buttonklik % 2 == 0)
+                        else if (speelveld[t,s] == 3 && help)
                         {
                             pea.Graphics.FillEllipse(Brushes.Blue, t * Panel.Width / vakx + 15, s * Panel.Height / vaky + 15, steen - 30, steen - 30);
                         }
                         //rode hint
-                        else if(speelveld[t,s] == 5 && buttonklik % 2 == 0)
+                        else if(speelveld[t,s] == 5 && help)
                         {
                             pea.Graphics.FillEllipse(Brushes.Red, t * Panel.Width / vakx + 15, s * Panel.Height / vaky + 15, steen - 30, steen - 30);
                         }
@@ -402,7 +418,7 @@ namespace Imperatief_Programmeren___Reversi
                 }
             }
 
-            if (teller % 2 == 0)
+            if (beurt % 2 == 0)
             {
                 Beurtbox.Text = "Blauw is aan de beurt.";
             }
