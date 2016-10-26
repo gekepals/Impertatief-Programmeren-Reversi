@@ -23,8 +23,8 @@ namespace Imperatief_Programmeren___Reversi
         //tellertje voor beide stenen
         int teller_rood = 0;
         int teller_blauw = 0;
-        int steenaantal = 4;
-
+        //int steenaantal = 4;
+        int hintaantal = 0;
         //indeling veld
         //0 is leeg
         //1 is rood
@@ -91,7 +91,7 @@ namespace Imperatief_Programmeren___Reversi
 
             veldWaarde();
 
-            steenaantal = 4;
+            //steenaantal = 4;
 
 
             //grootte speelveld aanpassen
@@ -133,7 +133,7 @@ namespace Imperatief_Programmeren___Reversi
                     speelveld[mousex, mousey] = 1;
                 }
                 beurt += 1;
-                steenaantal++;
+                //steenaantal++;
 
 
                 //array opschonen van tips
@@ -178,6 +178,13 @@ namespace Imperatief_Programmeren___Reversi
         {
             //Deze array is belangrijk
             speelveld = new int[vakx, vaky];
+            for(int t =0; t< vakx; t++)
+            {
+                for(int s = 0; s<vaky; s++)
+                {
+                    speelveld[t, s] = 0;
+                }
+            }
             speelveld[vakx / 2 - 1, vaky / 2 - 1] = 2;
             speelveld[vakx / 2, vaky / 2] = 2;
             speelveld[vakx / 2, vaky / 2 - 1] = 1;
@@ -249,6 +256,7 @@ namespace Imperatief_Programmeren___Reversi
                                                 }
                                             }
                                         }
+                                        //mocht de gelijk tegenovergestelde kleur de kleur van de tegenstander hebben
                                         else if (speelveld[t, s] != kleur && speelveld[t, s] != 0 && speelveld[t, s] != 3 && speelveld[t, s] != 5)
                                         {
                                             for(int verder = 2; verder <vakx && verder <vaky; verder++)
@@ -265,7 +273,7 @@ namespace Imperatief_Programmeren___Reversi
                                                             }
                                                             else if (kleur == 1)
                                                             {
-                                                                speelveld[t + x, s + y] = 5;
+                                                                speelveld[t + x, s + y] = 5; 
                                                             }
                                                         }
                                                     }
@@ -376,31 +384,40 @@ namespace Imperatief_Programmeren___Reversi
         //bepaling einde van het spel
         private void eindSpel()
         {
+            
             for(int t = 0; t < vakx; t++)
             {
                 for(int s = 0; s < vaky; s++)
                 {
-                    if(steenaantal == vakx * vaky)
+                    if(speelveld[t,s] == 3 || speelveld[t,s] == 5)
                     {
-                        if(teller_blauw > teller_rood)
-                        {
-                            MessageBox.Show("Blauw heeft gewonnen!");
-                        }
-                        else if(teller_rood > teller_blauw)
-                        {
-                            MessageBox.Show("Rood heeft gewonnen!");
-                            
-                        }
+                        hintaantal++;
                     }
-                    //return;
                 }
             }
+
+            if(hintaantal == 0)
+            {
+                if(teller_blauw > teller_rood)
+                {
+                    MessageBox.Show("Blauw Heeft gewonnen!");
+                }
+                else if(teller_rood > teller_blauw)
+                {
+                    MessageBox.Show("Rood heeft gewonnen!");
+                }
+                else
+                {
+                    MessageBox.Show("Remise!");
+                }
+            }
+            hintaantal = 0;
         }
 
         //panel voor het paint event
         private void panel1_Paint(object sender, PaintEventArgs pea)
         {
-            eindSpel();
+           
 
            this.steenHulp();
 
@@ -460,6 +477,7 @@ namespace Imperatief_Programmeren___Reversi
             {
                 Beurtbox.Text = "Rood is aan de beurt.";
             }
+            eindSpel();
         }
     }
 }
