@@ -278,6 +278,8 @@ namespace Imperatief_Programmeren___Reversi
                             while (speelveld[t + gx, s + gy] != kleur && speelveld[t + gx, s + gy] != 3 && speelveld[t + gx, s + gy] != 0 && t + gx * teller >= 0 && t + gx * teller < vakx && s + gy * teller >= 0 && s + gy * teller < vaky)
                             {
                                 //als de rij stenen op een gegeven moment een steen tegenkomt van eigen kleur
+                                if (speelveld[t + gx * teller, s + gy * teller] == 0 || speelveld[t + gx * teller, s + gy * teller] == 3)
+                                    break;
                                 if (speelveld[t + gx * teller, s + gy * teller] == kleur)
                                 {
                                     //teller terug laten lopen, zodat je alle stenen ertussen bereikt
