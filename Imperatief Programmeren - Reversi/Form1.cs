@@ -244,7 +244,6 @@ namespace Imperatief_Programmeren___Reversi
                                         t + verder * x * -1 < vakx && t + verder * x * -1 >= 0 && s + verder * y * -1 < vaky && s + verder * y * -1 >= 0;
                                         verder++)
                                     {
-                                        
                                         if (speelveld[t + verder * x * -1, s + verder * y * -1] == kleur)
                                         {
                                             speelveld[t + x, s + y] = 3;
