@@ -164,14 +164,10 @@ namespace Imperatief_Programmeren___Reversi
             }
 
             veldWaarde();
-<<<<<<< HEAD
-=======
             hintaantal = 1;
             beurt = 0;
             geenoptie = 0;
             stenenaantal = 4;
-
->>>>>>> refs/remotes/Winzum/master
 
             //grootte speelveld aanpassen
             Panel.Size = new Size(vakx * steen, vaky * steen);
@@ -360,14 +356,9 @@ namespace Imperatief_Programmeren___Reversi
                     }
                 }
             }
-<<<<<<< HEAD
             
             //eindscore laten zien als het veld vol is of als beide partijnen niet meer kunnen
             if(stenenaantal == vakx*vaky || geenoptie == 1)
-=======
-
-            if (stenenaantal == vakx*vaky || geenoptie == 1)
->>>>>>> refs/remotes/Winzum/master
             {
                 if(teller_blauw > teller_rood)
                 {
