@@ -38,6 +38,8 @@
             this.label_x = new System.Windows.Forms.Label();
             this.label_y = new System.Windows.Forms.Label();
             this.OK_button = new System.Windows.Forms.Button();
+            this.blauwScore = new System.Windows.Forms.Label();
+            this.roodScore = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Panel
@@ -125,11 +127,31 @@
             this.OK_button.Text = "OK";
             this.OK_button.UseVisualStyleBackColor = true;
             // 
+            // blauwScore
+            // 
+            this.blauwScore.AutoSize = true;
+            this.blauwScore.Location = new System.Drawing.Point(439, 26);
+            this.blauwScore.Name = "blauwScore";
+            this.blauwScore.Size = new System.Drawing.Size(39, 13);
+            this.blauwScore.TabIndex = 10;
+            this.blauwScore.Text = "Blauw:";
+            // 
+            // roodScore
+            // 
+            this.roodScore.AutoSize = true;
+            this.roodScore.Location = new System.Drawing.Point(439, 56);
+            this.roodScore.Name = "roodScore";
+            this.roodScore.Size = new System.Drawing.Size(36, 13);
+            this.roodScore.TabIndex = 11;
+            this.roodScore.Text = "Rood:";
+            // 
             // Reversi
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(502, 484);
+            this.Controls.Add(this.roodScore);
+            this.Controls.Add(this.blauwScore);
             this.Controls.Add(this.OK_button);
             this.Controls.Add(this.label_y);
             this.Controls.Add(this.label_x);
@@ -159,6 +181,8 @@
         private System.Windows.Forms.Label label_x;
         private System.Windows.Forms.Label label_y;
         private System.Windows.Forms.Button OK_button;
+        private System.Windows.Forms.Label blauwScore;
+        private System.Windows.Forms.Label roodScore;
     }
 }
 
