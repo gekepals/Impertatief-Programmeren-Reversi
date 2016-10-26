@@ -19,6 +19,10 @@ namespace Imperatief_Programmeren___Reversi
         int mousex, mousey;
         int teller = 0;
         int kleur, x, y;
+        int buttonklik = 0;
+        //tellertje voor beide stenen
+        int teller_rood = 0;
+        int teller_blauw = 0;
 
         //indeling veld
         //0 is leeg
@@ -56,8 +60,9 @@ namespace Imperatief_Programmeren___Reversi
         //Help button
         private void button1_Click(object sender, EventArgs ea)
         {
-            System.Windows.Forms.MessageBox.Show("Hier moeten instructies komen.");
+            buttonklik++;
 
+            Panel.Invalidate();
         }
 
         //Nieuw spel button
@@ -297,10 +302,6 @@ namespace Imperatief_Programmeren___Reversi
         //bijhouden score
         private void score()
         {
-            //tellertje voor beide stenen laten lopen
-            int teller_rood = 0;
-            int teller_blauw = 0;
-
             //veld doorlopen
             for(int t = 0; t < vakx; t++)
             {
@@ -321,6 +322,29 @@ namespace Imperatief_Programmeren___Reversi
 
             roodScore.Text = "Rood: " + teller_rood + " stenen";
             blauwScore.Text = "Blauw: " + teller_blauw + " stenen";
+        }
+
+        //bepaling einde van het spel
+        private void eindSpel()
+        {
+            for(int t = 0; t < vakx; t++)
+            {
+                for(int s = 0; s < vaky; s++)
+                {
+                    if(speelveld[t, s] != 0 && speelveld[t, s] != 3 && speelveld[t, s] != 5)
+                    {
+                        if(teller_blauw > teller_rood)
+                        {
+                            MessageBox.Show("Blauw heeft gewonnen!");
+                        }
+                        else if(teller_rood > teller_blauw)
+                        {
+                            MessageBox.Show("Rood heeft gewonnen!");
+                            
+                        }
+                    }
+                }
+            }
         }
 
         //panel voor het paint event
@@ -357,21 +381,22 @@ namespace Imperatief_Programmeren___Reversi
                         {
                             pea.Graphics.FillEllipse(Brushes.Red, t * Panel.Width / vakx + 5, s * Panel.Height / vaky + 5, steen -10, steen -10);
                         }
+                        //blauwe steen
+                        else if(speelveld[t, s] == 2)
+                        {
+                            pea.Graphics.FillEllipse(Brushes.Blue, t * Panel.Width / vakx + 5, s * Panel.Height / vaky + 5, steen - 10, steen - 10);
+                        }
                         //blauwe hint
-                        else if(speelveld[t,s] == 3)
+                        else if (speelveld[t,s] == 3 && buttonklik % 2 == 0)
                         {
                             pea.Graphics.FillEllipse(Brushes.Blue, t * Panel.Width / vakx + 15, s * Panel.Height / vaky + 15, steen - 30, steen - 30);
                         }
                         //rode hint
-                        else if(speelveld[t,s] == 5)
+                        else if(speelveld[t,s] == 5 && buttonklik % 2 == 0)
                         {
                             pea.Graphics.FillEllipse(Brushes.Red, t * Panel.Width / vakx + 15, s * Panel.Height / vaky + 15, steen - 30, steen - 30);
                         }
-                        //blauwe steen
-                        else
-                        {
-                            pea.Graphics.FillEllipse(Brushes.Blue, t * Panel.Width / vakx + 5, s * Panel.Height / vaky + 5, steen - 10, steen - 10);
-                        }
+                       
                     }
                 }
             }
