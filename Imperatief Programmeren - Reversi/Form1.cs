@@ -42,14 +42,14 @@ namespace Imperatief_Programmeren___Reversi
             OK_button.Click += button2_Click;
             x_waarde.KeyDown += x_waarde_enter;
             y_waarde.KeyDown += y_waarde_enter;
-
             this.beginArray(vakx, vaky);
+            
 
             //aanpassen grootte speelveld - labels & tekstboxen
-            label1.Text = "Grootte van het speelveld:";
             label_x.Text = "breedte:";
             label_y.Text = "hoogte:";
         }
+
 
         //Help button
         private void button1_Click(object sender, EventArgs ea)
@@ -401,7 +401,8 @@ namespace Imperatief_Programmeren___Reversi
                 for(int s = 0; s<= vaky; s++)
                 {
                     //veld tekenen
-                    pea.Graphics.DrawRectangle(Pens.Black, 0, 0, Panel.Width-1, Panel.Height-1);
+                    Pen pen = new Pen(Color.Black, 5);
+                    pea.Graphics.DrawRectangle(pen, 0, 0, Panel.Width-1, Panel.Height-1);
                     //horizontale lijnen
                     pea.Graphics.DrawLine(Pens.Black, t * Panel.Width / vakx, 0, t * Panel.Width / vakx, Panel.Height);
                     //verticale lijnen
@@ -424,12 +425,12 @@ namespace Imperatief_Programmeren___Reversi
                         //blauwe steen tekenen
                         else if(speelveld[t, s] == 2)
                         {
-                            pea.Graphics.FillEllipse(Brushes.Blue, t * Panel.Width / vakx + 5, s * Panel.Height / vaky + 5, steen - 10, steen - 10);
+                            pea.Graphics.FillEllipse(Brushes.DodgerBlue, t * Panel.Width / vakx + 5, s * Panel.Height / vaky + 5, steen - 10, steen - 10);
                         }
                         //blauwe hint tekenen
                         else if (speelveld[t,s] == 3 && help && beurt % 2 ==0)
                         {
-                            pea.Graphics.FillEllipse(Brushes.Blue, t * Panel.Width / vakx + 15, s * Panel.Height / vaky + 15, steen - 30, steen - 30);
+                            pea.Graphics.FillEllipse(Brushes.DodgerBlue, t * Panel.Width / vakx + 15, s * Panel.Height / vaky + 15, steen - 30, steen - 30);
                         }
                         //rode hint tekenen
                         else if(speelveld[t,s] == 3 && help && beurt % 2 ==1)
