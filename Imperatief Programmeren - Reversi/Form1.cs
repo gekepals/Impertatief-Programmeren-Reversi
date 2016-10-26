@@ -26,6 +26,8 @@ namespace Imperatief_Programmeren___Reversi
         int teller_blauw = 0;
        
         int hintaantal = 0;
+
+        int geenoptie = 0;
         
         
         //indeling veld
@@ -330,8 +332,7 @@ namespace Imperatief_Programmeren___Reversi
 
         //bepaling einde van het spel
         private void eindSpel()
-        {
-            
+        { 
             for(int t = 0; t < vakx; t++)
             {
                 for(int s = 0; s < vaky; s++)
@@ -342,7 +343,7 @@ namespace Imperatief_Programmeren___Reversi
                     }
                 }
             }
-
+            
             if(hintaantal == 0)
             {
                 if(teller_blauw > teller_rood)
@@ -358,18 +359,15 @@ namespace Imperatief_Programmeren___Reversi
                     MessageBox.Show("Remise!");
                 }
             }
+
             hintaantal = 0;
         }
 
         //panel voor het paint event
         private void panel1_Paint(object sender, PaintEventArgs pea)
         {
-           
-
            this.steenHulp();
-
-           score();
-                        
+           score();             
             for (int t = 0; t <= vakx; t++)
             {
                 for(int s = 0; s<= vaky; s++)
