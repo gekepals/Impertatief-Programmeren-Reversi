@@ -18,7 +18,7 @@ namespace Imperatief_Programmeren___Reversi
         int[,] speelveld;
         int mousex, mousey;
         int teller = 0;
-        int kleur, x, y, gx, gy;
+        int kleur, x, y;
 
         //indeling veld
         //0 is leeg
@@ -131,6 +131,9 @@ namespace Imperatief_Programmeren___Reversi
                     }
                 }
             }
+
+            kleurVerander(mousex, mousey);
+
             Panel.Invalidate();
         }
 
@@ -207,31 +210,35 @@ namespace Imperatief_Programmeren___Reversi
         private void legaleZet(int t, int s)
         {
             //raster rondom steen bekijken: beginnen bij 1, ophogen indien nodig
-            //probleem: hierbij nog bepaling dat ie niet buiten het veld eruit vliegt. Voor gemak heb ik nu 3 gekozen om deze code te testen
-            for (int a = 1; a < 5; a++)
+            for (int a = 1; a < vakx; a++)
             {
-                for (int b = 1; b < 5; b++)
+                for (int b = 1; b < vaky; b++)
                 {
+                    //raster doorlopen
                     for (x = -a; x <= a; x++)
                     {
                         for (y = -b; y <= b; y++)
                         {
-                            //kijken in het raster rondom de steen van de tegenpartij + niet buiten speelveld vallen
-                            if (speelveld[t + x, s + y] != 1 && speelveld[t + x, s + y] != 2 && t + x <= vakx && t + x > 0 && s + y <= vaky && s + y > 0)
+                            //zorgen dat ie niet buiten de array van speelveld valt
+                            if (t + x < vakx && t + x >= 0 && s + y < vaky && s + y >= 0)
                             {
-                                if (t + x * -1 <= vakx && t + x * -1 > 0 && s + y * -1 <= vaky && s + y * -1 > 0)
+                                //kijken in het raster rondom de steen van de tegenpartij
+                                if (speelveld[t + x, s + y] != 1 && speelveld[t + x, s + y] != 2)
                                 {
-                                    if (speelveld[t + x * -1, s + y * -1] == kleur)
+                                    if (t + x * -1 < vakx && t + x * -1 >= 0 && s + y * -1 < vaky && s + y * -1 >= 0)
                                     {
-                                        if (grenstAan(t + x, s + y) == true)
+                                        if (speelveld[t + x * -1, s + y * -1] == kleur)
                                         {
-                                            if (kleur == 2)
+                                            if (grenstAan(t + x, s + y) == true)
                                             {
-                                                speelveld[t + x, s + y] = 3;
-                                            }
-                                            else if (kleur == 1)
-                                            {
-                                                speelveld[t + x, s + y] = 4;
+                                                if (kleur == 2)
+                                                {
+                                                    speelveld[t + x, s + y] = 3;
+                                                }
+                                                else if (kleur == 1)
+                                                {
+                                                    speelveld[t + x, s + y] = 4;
+                                                }
                                             }
                                         }
                                     }
@@ -246,17 +253,17 @@ namespace Imperatief_Programmeren___Reversi
         private bool grenstAan(int t, int s)
         {
             //veld rondom de betreffende steen doorlopen: oftewel door -1, 0, en 1 voor zowel x als y
-            for(int a = -1; a <= 1; a++)
+            for (int a = -1; a <= 1; a++)
             {
-                for(int b = -1; b <= 1; b++)
+                for (int b = -1; b <= 1; b++)
                 {
                     //zorgen dat de waarde voor speelveld nog binnen speelveld past
-                    if (t + a <= vakx && s + b <= vaky && t + a > 0 && s + b > 0)
+                    if (t + a < vakx && s + b < vaky && t + a >= 0 && s + b >= 0)
                     {
                         //als aangrenzend veld 1 of 2 is, oftewel grenst aan een steen, return true
                         if (speelveld[t + a, s + b] == 1 || speelveld[t + a, s + b] == 2)
                             return true;
-                    }  
+                    }
                 }
             }
             //indien niet, return false
@@ -265,13 +272,35 @@ namespace Imperatief_Programmeren___Reversi
 
         private void kleurVerander(int t, int s)
         {
-            for(gx = 0; gx <= vakx; gx++)
+            //kijken rondom de gezette steen
+            for(int gx = -1; gx <= 1; gx++)
             {
-                for(gy = 0; gy <= vaky; gy++)
+                for(int gy = -1; gy <= 1; gy++)
                 {
-                    if(t - gx > 0 && t + gx <= vakx && s - gy > 0 && s + gy <= vaky)
+                    //zorgen dat ie niet buiten de array vliegt
+                    if (t + gx < vakx && t + gx >= 0 && s + gy < vaky && s + gy >= 0)
                     {
-
+                        //kijken of steen naast de gezette steen van de andere kleur is
+                        if (speelveld[t + gx, s + gy] != kleur)
+                        {
+                            int teller = 1;
+                            //loop doorlopen zolang als de rij stenen van de andere kleur zijn
+                            while (speelveld[t + gx, s + gy] != kleur && t + gx * teller >= 0 && t + gx * teller < vakx && s + gy * teller >= 0 && s + gy * teller < vaky)
+                            {
+                                //als de rij stenen op een gegeven moment een steen tegenkomt van eigen kleur
+                                if (speelveld[t + gx * teller, s + gy * teller] == kleur)
+                                {
+                                    //teller terug laten lopen, zodat je alle stenen ertussen bereikt
+                                    for (int z = teller; z > 0; z--)
+                                    {
+                                        //deze stenen de eigen kleur maken
+                                        speelveld[t + gx * z, s + gy * z] = kleur;
+                                    }
+                                }
+                                teller++;
+                            }
+                        }
+                        
                     }
                 }
             }
@@ -296,9 +325,7 @@ namespace Imperatief_Programmeren___Reversi
                                        
                 }
             }
-                        
 
-            //kleurVerander();
             
             for(int t = 0; t < vakx; t++)
             {
