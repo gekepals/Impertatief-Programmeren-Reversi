@@ -20,17 +20,19 @@ namespace Imperatief_Programmeren___Reversi
         int beurt = 0;
         int kleur, x, y;
         bool help = false;
+
         //tellertje voor beide stenen
         int teller_rood = 0;
         int teller_blauw = 0;
-        //int steenaantal = 4;
+       
         int hintaantal = 0;
+        
+        
         //indeling veld
         //0 is leeg
         //1 is rood
         //2 is blauw
         //3 is hulp
-
 
         public Reversi()
         {
@@ -256,6 +258,7 @@ namespace Imperatief_Programmeren___Reversi
                             }
                         }
                     }
+
                 }
             }
         }
