@@ -263,7 +263,7 @@ namespace Imperatief_Programmeren___Reversi
                     if (t + a < vakx && s + b < vaky && t + a >= 0 && s + b >= 0)
                     {
                         //als aangrenzend veld 1 of 2 is, oftewel grenst aan een steen, return true
-                        if (speelveld[t + a, s + b] == 1 || speelveld[t + a, s + b] == 2)
+                        if (speelveld[t + a, s + b] != kleur)
                             return true;
                     }
                 }
