@@ -331,7 +331,7 @@ namespace Imperatief_Programmeren___Reversi
             {
                 for(int s = 0; s < vaky; s++)
                 {
-                    if(speelveld[t, s] != 0 && speelveld[t, s] != 3 && speelveld[t, s] != 5)
+                    if (!(speelveld[t, s] == 0) && !(speelveld[t, s] == 3) && !(speelveld[t, s] == 5))
                     {
                         if(teller_blauw > teller_rood)
                         {
@@ -350,10 +350,11 @@ namespace Imperatief_Programmeren___Reversi
         //panel voor het paint event
         private void panel1_Paint(object sender, PaintEventArgs pea)
         {
-           
+            eindSpel();
+
            this.steenHulp();
 
-            score();
+           score();
                         
             for (int t = 0; t <= vakx; t++)
             {
