@@ -23,6 +23,7 @@ namespace Imperatief_Programmeren___Reversi
         //tellertje voor beide stenen
         int teller_rood = 0;
         int teller_blauw = 0;
+        int steenaantal = 4;
 
         //indeling veld
         //0 is leeg
@@ -90,6 +91,8 @@ namespace Imperatief_Programmeren___Reversi
 
             veldWaarde();
 
+            steenaantal = 4;
+
 
             //grootte speelveld aanpassen
             Panel.Size = new Size(vakx * steen, vaky * steen);
@@ -130,6 +133,7 @@ namespace Imperatief_Programmeren___Reversi
                     speelveld[mousex, mousey] = 1;
                 }
                 beurt += 1;
+                steenaantal++;
 
 
                 //array opschonen van tips
@@ -263,8 +267,17 @@ namespace Imperatief_Programmeren___Reversi
                     if (t + a < vakx && s + b < vaky && t + a >= 0 && s + b >= 0)
                     {
                         //als aangrenzend veld 1 of 2 is, oftewel grenst aan een steen, return true
-                        if (speelveld[t + a, s + b] == 1 || speelveld[t + a, s + b] == 2)
-                            return true;
+                        if(kleur == 2)
+                        {
+                            if (speelveld[t + a, s + b] == 1)
+                                return true;
+                        }
+                        else if(kleur == 1)
+                        {
+                            if (speelveld[t + a, s + b] == 2)
+                                return true;
+                        }
+
                     }
                 }
             }
@@ -342,7 +355,7 @@ namespace Imperatief_Programmeren___Reversi
             {
                 for(int s = 0; s < vaky; s++)
                 {
-                    if(speelveld[t, s] != 0 && speelveld[t, s] != 3 && speelveld[t, s] != 5)
+                    if(steenaantal == vakx * vaky)
                     {
                         if(teller_blauw > teller_rood)
                         {
@@ -354,6 +367,7 @@ namespace Imperatief_Programmeren___Reversi
                             
                         }
                     }
+                    return;
                 }
             }
         }
@@ -361,10 +375,11 @@ namespace Imperatief_Programmeren___Reversi
         //panel voor het paint event
         private void panel1_Paint(object sender, PaintEventArgs pea)
         {
-           
-            this.steenHulp();
+            eindSpel();
 
-            score();
+           this.steenHulp();
+
+           score();
                         
             for (int t = 0; t <= vakx; t++)
             {
