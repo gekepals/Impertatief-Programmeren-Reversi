@@ -28,6 +28,7 @@ namespace Imperatief_Programmeren___Reversi
         int hintaantal = 0;
 
         int geenoptie = 0;
+        int stenenaantal = 4;
         
         
         //indeling veld
@@ -79,28 +80,7 @@ namespace Imperatief_Programmeren___Reversi
         //Nieuw spel button
         private void button2_Click(object sender, EventArgs ea)
         {
-            //beginArray(vakx, vaky);
-            //evt aanpassing van speelveld
-
-
-            //waardes resetten
-            for (int t = 0; t < vakx; t++)
-            {
-                for (int s = 0; s < vaky; s++)
-                {
-                    speelveld[t, s] = 0;
-                }
-            }
-
-            veldWaarde();
-
-            //steenaantal = 4;
-
-
-            //grootte speelveld aanpassen
-            Panel.Size = new Size(vakx * steen, vaky * steen);
-
-            Panel.Invalidate();
+            this.nieuwSpel();
         }
 
         //indrukken ENTER na tekstbox x_waarde
@@ -153,6 +133,7 @@ namespace Imperatief_Programmeren___Reversi
 
 
                 kleurVerander(mousex, mousey);
+                stenenaantal++;
 
                 Panel.Invalidate();
             }
@@ -172,6 +153,29 @@ namespace Imperatief_Programmeren___Reversi
                 vaky = w_vaky;
 
             this.beginArray(vakx, vaky);
+
+            Panel.Invalidate();
+        }
+
+        //nieuw spel starten
+        private void nieuwSpel()
+        {
+            //waardes resetten
+            for (int t = 0; t < vakx; t++)
+            {
+                for (int s = 0; s < vaky; s++)
+                {
+                    speelveld[t, s] = 0;
+                }
+            }
+
+            veldWaarde();
+
+            //steenaantal = 4;
+
+
+            //grootte speelveld aanpassen
+            Panel.Size = new Size(vakx * steen, vaky * steen);
 
             Panel.Invalidate();
         }
@@ -340,24 +344,36 @@ namespace Imperatief_Programmeren___Reversi
                     if(speelveld[t,s] == 3)
                     {
                         hintaantal++;
+                        geenoptie = 0;
                     }
                 }
             }
             
-            if(hintaantal == 0)
+            if(stenenaantal == vakx*vaky || geenoptie == 1)
             {
                 if(teller_blauw > teller_rood)
                 {
                     MessageBox.Show("Blauw heeft gewonnen!");
+                    this.nieuwSpel(); 
                 }
                 else if(teller_rood > teller_blauw)
                 {
                     MessageBox.Show("Rood heeft gewonnen!");
+                    this.nieuwSpel();
                 }
                 else
                 {
                     MessageBox.Show("Remise!");
+                    this.nieuwSpel();
                 }
+            }
+
+            if (hintaantal == 0)
+            {
+                geenoptie++;
+                beurt++;
+                MessageBox.Show("De andere speler kan niet, ga nog een keer!");
+                Panel.Invalidate();
             }
 
             hintaantal = 0;
