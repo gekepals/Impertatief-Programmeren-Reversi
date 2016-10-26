@@ -138,7 +138,7 @@ namespace Imperatief_Programmeren___Reversi
                 //array opschonen van tips
                 for (int t = 0; t < vakx; t++)
                 {
-                    for (int s = 0; s < vakx; s++)
+                    for (int s = 0; s < vaky; s++)
                     {
                         if (speelveld[t, s] == 3)
                         {
@@ -244,11 +244,13 @@ namespace Imperatief_Programmeren___Reversi
                                         t + verder * x * -1 < vakx && t + verder * x * -1 >= 0 && s + verder * y * -1 < vaky && s + verder * y * -1 >= 0;
                                         verder++)
                                     {
+                                        if (speelveld[t + verder * x * -1, s + verder * y * -1] == 0 || speelveld[t + verder * x * -1, s + verder * y * -1] == 3)
+                                            break;
                                         if (speelveld[t + verder * x * -1, s + verder * y * -1] == kleur)
                                         {
                                             speelveld[t + x, s + y] = 3;
                                         }
-                                        
+
                                     }
                                 }
                             }
@@ -269,7 +271,7 @@ namespace Imperatief_Programmeren___Reversi
                     if (t + gx < vakx && t + gx >= 0 && s + gy < vaky && s + gy >= 0)
                     {
                         //kijken of steen naast de gezette steen van de andere kleur is
-                        if (speelveld[t + gx, s + gy] != kleur)
+                        if (speelveld[t + gx, s + gy] != kleur && speelveld[t + gx, s + gy] != 3 && speelveld[t + gx, s + gy] != 0)
                         {
                             int teller = 1;
                             //loop doorlopen zolang de rij stenen van de andere kleur zijn
@@ -340,7 +342,7 @@ namespace Imperatief_Programmeren___Reversi
             {
                 if(teller_blauw > teller_rood)
                 {
-                    MessageBox.Show("Blauw Heeft gewonnen!");
+                    MessageBox.Show("Blauw heeft gewonnen!");
                 }
                 else if(teller_rood > teller_blauw)
                 {
