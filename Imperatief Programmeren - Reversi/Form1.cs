@@ -20,16 +20,21 @@ namespace Imperatief_Programmeren___Reversi
         int beurt = 0;
         int kleur, x, y;
         bool help = false;
+
         //tellertje voor beide stenen
         int teller_rood = 0;
         int teller_blauw = 0;
-        int steenaantal = 4;
+       
+        int hintaantal = 0;
 
+        int geenoptie = 0;
+        
+        
         //indeling veld
         //0 is leeg
         //1 is rood
         //2 is blauw
-        //3 is hints
+        //3 is hulp
 
         public Reversi()
         {
@@ -89,7 +94,7 @@ namespace Imperatief_Programmeren___Reversi
 
             veldWaarde();
 
-            steenaantal = 4;
+            //steenaantal = 4;
 
 
             //grootte speelveld aanpassen
@@ -131,13 +136,13 @@ namespace Imperatief_Programmeren___Reversi
                     speelveld[mousex, mousey] = 1;
                 }
                 beurt += 1;
-                steenaantal++;
+                //steenaantal++;
 
 
                 //array opschonen van tips
                 for (int t = 0; t < vakx; t++)
                 {
-                    for (int s = 0; s < vakx; s++)
+                    for (int s = 0; s < vaky; s++)
                     {
                         if (speelveld[t, s] == 3)
                         {
@@ -176,6 +181,13 @@ namespace Imperatief_Programmeren___Reversi
         {
             //Deze array is belangrijk
             speelveld = new int[vakx, vaky];
+            for(int t =0; t< vakx; t++)
+            {
+                for(int s = 0; s<vaky; s++)
+                {
+                    speelveld[t, s] = 0;
+                }
+            }
             speelveld[vakx / 2 - 1, vaky / 2 - 1] = 2;
             speelveld[vakx / 2, vaky / 2] = 2;
             speelveld[vakx / 2, vaky / 2 - 1] = 1;
@@ -210,7 +222,6 @@ namespace Imperatief_Programmeren___Reversi
         //bepalen of iets een legale zet is
         private void legaleZet(int t, int s)
         {
-            //raster doorlopen
             for (x = -1; x <= 1; x++)
             {
                 for (y = -1; y <= 1; y++)
@@ -221,78 +232,37 @@ namespace Imperatief_Programmeren___Reversi
                         //kijken in het raster rondom de steen van de tegenpartij: veld moet niet al bezet zijn door een steen
                         if (speelveld[t + x, s + y] != 1 && speelveld[t + x, s + y] != 2)
                         {
-                            int verder = 1;
                             //zorgen dat ie niet buiten de array van speelveld valt
-                            if (t + verder * x * -1 < vakx && t + verder * x * -1 >= 0 && s + verder * y * -1 < vaky && s + verder * y * -1 >= 0)
+                            if (t + x * -1 < vakx && t + x * -1 >= 0 && s + y * -1 < vaky && s + y * -1 >= 0)
                             {
-                                        while (speelveld[t + verder * x * -1, s + verder * y * -1] != kleur && speelveld[t + verder * x * -1, s + verder * y * -1] != 0 && speelveld[t + verder * x * -1, s + verder * y * -1] != 3)
-                                        {
-                                                if (speelveld[t + verder * x * -1, s + verder * y * -1] == kleur)
-                                                {
-                                                    if (grenstAan(t + x, s + y) == true)
-                                                    {
-                                                        speelveld[t + x, s + y] = 3;
-                                                    }
-                                                }
-                                            else if (t + (verder-1) * x * -1 < vakx && t + (verder-1) * x * -1 >= 0 && s + (verder-1) * y * -1 < vaky && s + (verder-1) * y * -1 >= 0)
-                                            {
-                                                verder++;
-                                            }
-                                        
-                                            
-                                    }
-
-
-                                    /*
-                                    for(int verder = 2; verder <vakx && verder <vaky; verder++)
+                                //als ergens in het raster het tegenoverliggende veld van dezelfde kleur is
+                                if (speelveld[t + x * -1, s + y * -1] == kleur)
+                                {
+                                    speelveld[t + x, s + y] = 3;
+                                }
+                                //mocht de tegenovergestelde steen van de hint de kleur van de tegenstander hebben
+                                else if (speelveld[t + x * -1, s + y * -1] != kleur && speelveld[t + x * -1, s + y * -1] != 0 && speelveld[t + x * -1, s + y * -1] != 3)
+                                {
+                                    //verder kijken dan bovengenoemde steen
+                                    for (int verder = 2;
+                                        t + verder * x * -1 < vakx && t + verder * x * -1 >= 0 && s + verder * y * -1 < vaky && s + verder * y * -1 >= 0;
+                                        verder++)
                                     {
-                                        if (t + verder *x * -1 < vakx && t + verder *x * -1 >= 0 && s + verder*y * -1 < vaky && s + verder* y * -1 >= 0)
+                                        if (speelveld[t + verder * x * -1, s + verder * y * -1] == 0 || speelveld[t + verder * x * -1, s + verder * y * -1] == 3)
+                                            break;
+                                        if (speelveld[t + verder * x * -1, s + verder * y * -1] == kleur)
                                         {
-                                            if (speelveld[t + verder * x * -1, s + verder * y * -1] == kleur)
-                                            {
-                                                if (grenstAan(t + x, s + y) == true)
-                                                {
-                                                    speelveld[t + x, s + y] = 3;
-                                                }
-                                            }
+                                            speelveld[t + x, s + y] = 3;
                                         }
+
                                     }
-                                    */
                                 }
                             }
                         }
                     }
+
                 }
             }
-        }
-
-        private bool grenstAan(int t, int s)
-        {
-            //veld rondom de betreffende steen doorlopen: oftewel door -1, 0, en 1 voor zowel x als y
-            for (int a = -1; a <= 1; a++)
-            {
-                for (int b = -1; b <= 1; b++)
-                {
-                    //zorgen dat de waarde voor speelveld nog binnen speelveld past
-                    if (t + a < vakx && s + b < vaky && t + a >= 0 && s + b >= 0)
-                    {
-                        //als aangrenzend veld 1 of 2 is, oftewel grenst aan een steen, return true
-                        if(kleur == 2)
-                        {
-                            if (speelveld[t + a, s + b] == 1)
-                                return true;
-                        }
-                        else if(kleur == 1)
-                        {
-                            if (speelveld[t + a, s + b] == 2)
-                                return true;
-                        }
-
-                    }
-                }
-            }
-            //indien niet, return false
-            return false;
         }
 
         private void kleurVerander(int t, int s)
@@ -306,13 +276,15 @@ namespace Imperatief_Programmeren___Reversi
                     if (t + gx < vakx && t + gx >= 0 && s + gy < vaky && s + gy >= 0)
                     {
                         //kijken of steen naast de gezette steen van de andere kleur is
-                        if (speelveld[t + gx, s + gy] != kleur)
+                        if (speelveld[t + gx, s + gy] != kleur && speelveld[t + gx, s + gy] != 3 && speelveld[t + gx, s + gy] != 0)
                         {
                             int teller = 1;
                             //loop doorlopen zolang de rij stenen van de andere kleur zijn
                             while (speelveld[t + gx, s + gy] != kleur && speelveld[t + gx, s + gy] != 3 && speelveld[t + gx, s + gy] != 0 && t + gx * teller >= 0 && t + gx * teller < vakx && s + gy * teller >= 0 && s + gy * teller < vaky)
                             {
                                 //als de rij stenen op een gegeven moment een steen tegenkomt van eigen kleur
+                                if (speelveld[t + gx * teller, s + gy * teller] == 0 || speelveld[t + gx * teller, s + gy * teller] == 3)
+                                    break;
                                 if (speelveld[t + gx * teller, s + gy * teller] == kleur)
                                 {
                                     //teller terug laten lopen, zodat je alle stenen ertussen bereikt
@@ -360,37 +332,42 @@ namespace Imperatief_Programmeren___Reversi
 
         //bepaling einde van het spel
         private void eindSpel()
-        {
+        { 
             for(int t = 0; t < vakx; t++)
             {
                 for(int s = 0; s < vaky; s++)
                 {
-                    if(steenaantal == vakx * vaky)
+                    if(speelveld[t,s] == 3)
                     {
-                        if(teller_blauw > teller_rood)
-                        {
-                            MessageBox.Show("Blauw heeft gewonnen!");
-                        }
-                        else if(teller_rood > teller_blauw)
-                        {
-                            MessageBox.Show("Rood heeft gewonnen!");
-                            
-                        }
+                        hintaantal++;
                     }
-                    //return;
                 }
             }
+            
+            if(hintaantal == 0)
+            {
+                if(teller_blauw > teller_rood)
+                {
+                    MessageBox.Show("Blauw heeft gewonnen!");
+                }
+                else if(teller_rood > teller_blauw)
+                {
+                    MessageBox.Show("Rood heeft gewonnen!");
+                }
+                else
+                {
+                    MessageBox.Show("Remise!");
+                }
+            }
+
+            hintaantal = 0;
         }
 
         //panel voor het paint event
         private void panel1_Paint(object sender, PaintEventArgs pea)
         {
-            eindSpel();
-
            this.steenHulp();
-
-           score();
-                        
+           score();             
             for (int t = 0; t <= vakx; t++)
             {
                 for(int s = 0; s<= vaky; s++)
@@ -422,18 +399,17 @@ namespace Imperatief_Programmeren___Reversi
                         {
                             pea.Graphics.FillEllipse(Brushes.Blue, t * Panel.Width / vakx + 5, s * Panel.Height / vaky + 5, steen - 10, steen - 10);
                         }
-                        //hints
-                        else if (speelveld[t,s] == 3 && help)
-                            //blauwe hint
-                            if(kleur == 2)
-                            {
-                                pea.Graphics.FillEllipse(Brushes.Blue, t * Panel.Width / vakx + 15, s * Panel.Height / vaky + 15, steen - 30, steen - 30);
-                            }
-                            //rode hint
-                            else if(kleur == 1)
-                            {
-                                pea.Graphics.FillEllipse(Brushes.Red, t * Panel.Width / vakx + 15, s * Panel.Height / vaky + 15, steen - 30, steen - 30);
-                            }
+                        //blauwe hint
+                        else if (speelveld[t,s] == 3 && help && beurt %2 ==0)
+                        {
+                            pea.Graphics.FillEllipse(Brushes.Blue, t * Panel.Width / vakx + 15, s * Panel.Height / vaky + 15, steen - 30, steen - 30);
+                        }
+                        //rode hint
+                        else if(speelveld[t,s] == 3 && help && beurt % 2 ==1)
+                        {
+                            pea.Graphics.FillEllipse(Brushes.Red, t * Panel.Width / vakx + 15, s * Panel.Height / vaky + 15, steen - 30, steen - 30);
+                        }
+                       
                     }
                 }
             }
@@ -446,6 +422,7 @@ namespace Imperatief_Programmeren___Reversi
             {
                 Beurtbox.Text = "Rood is aan de beurt.";
             }
+            eindSpel();
         }
     }
 }
